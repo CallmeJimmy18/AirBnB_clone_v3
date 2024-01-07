@@ -4,7 +4,7 @@ from models import storage
 from api.v1.views import app_views
 from os import getenv
 from flask_cors import CORS
-from flask import Flask, jsonify
+from flask import Flask
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
@@ -18,17 +18,6 @@ def close_db(error):
     Close storage type
     """
     storage.close()
-
-
-@app.errorhandler(404)
-def page_not_found(error):
-    """
-    handler for 404 errors
-    """
-    response = jsonify(error="Not found")
-    response.status_code = 404
-    return response
-
 
 if __name__ == "__main__":
     """ Main Function """
