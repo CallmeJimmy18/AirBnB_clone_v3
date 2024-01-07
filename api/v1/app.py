@@ -7,7 +7,6 @@ from flask_cors import CORS
 from flask import Flask, jsonify
 
 app = Flask(__name__)
-app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.register_blueprint(app_views)
 cors = CORS(app, resources={r"/api/*": {"origins": "0.0.0.0"}})
 
@@ -19,12 +18,14 @@ def close_db(error):
     """
     storage.close()
 
+
 @app.errorhandler(404)
 def page_not_found(error):
     """
     handler for 404 errors
     """
-    return jsonify(error="Not found")
+    return jsonify(error="Not found"), 404
+
 
 if __name__ == "__main__":
     """ Main Function """
